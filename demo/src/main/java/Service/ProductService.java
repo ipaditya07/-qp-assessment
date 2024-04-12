@@ -41,7 +41,7 @@ public class ProductService {
         Optional<Product> optionalItem = productRepository.findById(itemId);
         if (optionalItem.isPresent()) {
             Product productToUpdate = optionalItem.get();
-            productToUpdate.setName(item.getName());
+            productToUpdate.setProductName(item.getProductName());
             productToUpdate.setPrice(item.getPrice());
             return productRepository.save(productToUpdate);
         } else {
@@ -54,7 +54,7 @@ public class ProductService {
         items.forEach(item -> {
             int inventory = item.getInventory();
             if (inventory <= 0) {
-                throw new OutOfStockException("Item " + item.getName() + " is out of stock.");
+                throw new OutOfStockException("Item " + item.getProductName() + " is out of stock.");
             }
             item.setInventory(inventory - 1);
         });
